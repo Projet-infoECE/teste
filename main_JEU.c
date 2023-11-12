@@ -164,6 +164,7 @@ void deplacment(){
 
             case 'z': // Haut
                 if (personnageRow > 0 && matrix[personnageRow - 1][personnageCol] == 0 && !(matrix[personnageRow - 1][personnageCol] == 2) || matrix[personnageRow - 1][personnageCol] == 3 || matrix[personnageRow - 1][personnageCol] ==4||matrix[personnageRow - 1][personnageCol] == 6|| (matrix[personnageRow-1][personnageCol] == 7)||matrix[personnageRow-1][personnageCol] == 8){
+                        // Condtion si le mur n'est pas incassable 
                     if (matrix[personnageRow-1][personnageCol] == 4) {
                         point = point +1;
                     }
@@ -172,12 +173,13 @@ void deplacment(){
 //
 //                        printf("teste\n ");
 //                    }
-                    if (matrix[personnageRow-1][personnageCol] == 7){
+                    if (matrix[personnageRow-1][personnageCol] == 7){// ajoute de la vie 
                         vie = vie +1;
                     }
-                    if (matrix[personnageRow-1][personnageCol] == 8){
+                    if (matrix[personnageRow-1][personnageCol] == 8){// enleve de la vie 
                         vie = vie -1;
                     }
+                        // modifie la matrice pour faire offfice de déplacment 
                     matrix[personnageRow][personnageCol] = 0;
                     personnageRow--;
                     matrix[personnageRow][personnageCol] = 5;
