@@ -26,10 +26,10 @@ struct ThreadData {
     int seconds;
     int isRunning;
 };
-void afficherChronometre(int seconds) {
+void afficherChronometre(int seconds) {// Affiche le score par rapport au temps 
     printf("\nTemps ecoule : %d secondes", 120-seconds);
 }
-void *chronometre(void *data) {
+void *chronometre(void *data) {//mise en place du chronometre 
     struct ThreadData *threadData = (struct ThreadData *)data;
 
     while (threadData->isRunning) {
@@ -42,7 +42,7 @@ void *chronometre(void *data) {
     pthread_exit(NULL);
 }
 
-// The timer function
+// Affichage du menu
 void afficherMenu() {
     printf("Menu:\n");
     printf("1. Lancer le jeu\n");
@@ -84,31 +84,31 @@ void afficherMatrice() {
         for (int j = 0; j < COLS; j++) {
             switch (matrix[i][j]) {
                 case 0:
-                    printf(" ");
+                    printf(" ");//bloc vide 
                     break;
                 case 1:
-                    printf("%c", 0xDB);
+                    printf("%c", 0xDB);//mur incassable
                     break;
                 case 2:
-                    printf("%c", 0xDB);
+                    printf("%c", 0xDB);//mur incassable dasn la map
                     break;
                 case 3:
-                    printf("%c", 0xDB);
+                    printf("%c", 0xDB);//bloc cassable 
                     break;
                 case 4:
-                    printf("%c", 0x05);
+                    printf("%c", 0x05);//bloc de point
                     break;
                 case 5:
-                    printf("p");
+                    printf("s");// spwan du joueur
                     break;
                 case 6:
                     printf("%c", 0x06);
                     break;
                 case 7:
-                    printf("%c", 0x03);
+                    printf("%c", 0x03);// rajoute de la vie
                     break;
                 case 8:
-                    printf("%c", 0xDB);
+                    printf("%c", 0xDB);//enleve de la vie
                     break;
 //                case 9:
 //                    for (int n = 0; n < 60; n++) {
