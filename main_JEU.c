@@ -336,4 +336,7 @@ void lancement_du_menu(){
             break;
     }
 }
-
+int main() {
+    lancement_du_menu();
+    return 0;
+}
