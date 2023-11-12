@@ -118,7 +118,6 @@ void afficherMatrice() {
 //                        sleep(1);
 //                        clk = clk + 1;
 //                    }
-
                     break;
                 default:
                     printf(" ");
@@ -157,11 +156,8 @@ void deplacment(){
 
 
     while (!Game) {
-
-
         commande = getch();
         int clk = 0;
-
 
         // Déplacer le personnage en fonction de la commande
         switch (commande) {
@@ -185,7 +181,6 @@ void deplacment(){
                     matrix[personnageRow][personnageCol] = 0;
                     personnageRow--;
                     matrix[personnageRow][personnageCol] = 5;
-
                 }
                 if (point == 4){
                     system("cls");
@@ -193,14 +188,11 @@ void deplacment(){
                     afficherMatrice();
                     afficherScore(120 - threadData.seconds);
                     printf("\n GAGNE ");
-
                     return;
                 }
-
                 else{
                     system("cls");
                     Sleep(10);
-
                     afficherMatrice();
                 }
                 
@@ -210,7 +202,6 @@ void deplacment(){
                 if (personnageRow < ROWS - 1 && matrix[personnageRow + 1][personnageCol] == 0 && !(matrix[personnageRow + 1][personnageCol] == 2) || matrix[personnageRow + 1][personnageCol] == 3 || (matrix[personnageRow + 1][personnageCol] == 4)||matrix[personnageRow+1][personnageCol] == 7||matrix[personnageRow+1][personnageCol] == 8) {
                     if (matrix[personnageRow + 1][personnageCol] == 4){
                         point = point +1;
-
                     }
                     if (matrix[personnageRow+1][personnageCol] == 7){
                         vie = vie +1;
@@ -221,15 +212,12 @@ void deplacment(){
                     matrix[personnageRow][personnageCol] = 0;
                     personnageRow++;
                     matrix[personnageRow][personnageCol] = 5;
-
-
                 }
                 if (point == 4){
                     system("cls");
                     afficherMatrice();
                     afficherScore(120 - threadData.seconds);
                     printf("\nGAGNE");
-
                     return;
                 }
                 else{
@@ -260,7 +248,6 @@ void deplacment(){
                     afficherMatrice();
                     afficherScore(120 - threadData.seconds);
                     printf("\nGAGNE");
-
                     return;
                 }
                 else{
@@ -268,7 +255,6 @@ void deplacment(){
                     Sleep(10);
                     afficherMatrice();
                 }
-
                 break;
             case 'd': // Droite
                 if (personnageCol < COLS - 1 && matrix[personnageRow][personnageCol + 1] == 0 && !(matrix[personnageRow][personnageCol + 1] == 2) || matrix[personnageRow][personnageCol + 1] == 3 || matrix[personnageRow][personnageCol + 1] == 4 ||matrix[personnageRow][personnageCol+1] == 7||matrix[personnageRow][personnageCol+1] == 8) {
@@ -284,8 +270,6 @@ void deplacment(){
                     matrix[personnageRow][personnageCol] = 0;
                     personnageCol++;
                     matrix[personnageRow][personnageCol] = 5;
-
-
                 }
                 if (point == 4){
                     system("cls");
@@ -299,17 +283,12 @@ void deplacment(){
                     system("cls");
                     Sleep(10);
                     afficherMatrice();
-
                 }
-
-
                 break;
             case 'r': // Quitter le jeu
                 threadData.isRunning = 0;
                 pthread_join(chronometreThread, NULL);
             default:
-
-
                 break;
         }
 
@@ -320,13 +299,7 @@ void deplacment(){
             printf("\nGAME OVER");
             return;
         }
-
-
-
     }
-
-
-
 }
 void lancement_du_menu(){
 
@@ -340,12 +313,8 @@ void lancement_du_menu(){
 
     switch (choix) {
         case 1: {
-
-
             deplacment();
-
             // Arrêt du chronomètre
-
             break;
         }
         case 2:
@@ -353,10 +322,7 @@ void lancement_du_menu(){
             // Ajoutez votre code pour l'option 2 ici
             printf("\n");
             sleep(20);
-
             deplacment();
-
-
             break;
         case 3:
             Option();
@@ -371,10 +337,6 @@ void lancement_du_menu(){
     }
 }
 int main() {
-
     lancement_du_menu();
-
-
-
     return 0;
 }
