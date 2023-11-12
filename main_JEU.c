@@ -42,14 +42,7 @@ void *chronometre(void *data) {//mise en place du chronometre
     pthread_exit(NULL);
 }
 
-// Affichage du menu
-void afficherMenu() {
-    printf("Menu:\n");
-    printf("1. Lancer le jeu\n");
-    printf("2. Regle\n");
-    printf("3. Option\n");
-    printf("4. Quitter\n");
-}
+
 
 void Regle(){
     printf("***Bienvenue sur le jeu Snoopy's Magic Show!***\n");
