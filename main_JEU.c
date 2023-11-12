@@ -52,7 +52,7 @@ void afficherMenu() {
 }
 
 void Regle(){
-    printf("***Bienvenue sur le jeu Snoopy's Magic Show!***\n");
+ printf("***Bienvenue sur le jeu Snoopy's Magic Show!***\n");
 
     printf("-->Pour profiter pleinement du jeu, il est important\n d'en comprendre le fonctionnement et de bien suivre\n les regles qui lui sont attribuees:\n");
     printf("1.Afin de valider un niveau, il est necessaire d'attraper les 4 oiseaux situes dans les quatres coins de la map.\n");
@@ -60,7 +60,7 @@ void Regle(){
     printf("3.Afin d'atteindre son objectif, Snoopy a la possibilite de deplacer certains blocs.\n");
     printf("4.Durant la partie une balle se deplace sur la map, si celle-ci touche Snoopy,alors celui-ci perd une vie.\n");
     printf("5.Des blocs pieges sont aussi dissimules parmi l'ensemble des blocs de la map, si Snoopy en heurte un,alors celui-ci perd une vie.\n");
-    printf("6. Enfin si Snoopy utilise ses 3 vies avant de terminer le niveau,le joeur doit relancer le jeu et recommencer depuis le debut(GAME OVER).\n");
+    printf("6. Enfin si Snoopy utilise ses 3 vies avant de terminer le niveau,le joueur doit relancer le jeu et recommencer depuis le debut(GAME OVER).\n");
     printf("***Voila c'est a vous maintenant!***\n-->BONNE CHASSE<--");// ecrire les régles
     }
 
