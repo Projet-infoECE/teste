@@ -27,7 +27,17 @@ struct ThreadData {
 void afficherChronometre(int seconds) {// Affiche le score par rapport au temps 
     printf("\nTemps ecoule : %d secondes", 120-seconds);
 }
+void *chronometre(void *data) {//mise en place du chronometre 
+    struct ThreadData *threadData = (struct ThreadData *)data;
 
+    while (threadData->isRunning) {
+        afficherChronometre(threadData->seconds);
+        Sleep(1000);
+        threadData->seconds++;
+    }
+
+
+    pthread_exit(NULL);
 }
 
 // Affichage du menu
