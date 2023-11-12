@@ -18,7 +18,9 @@ char matrix[ROWS][COLS] = {
         {1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };// Matrice du jeux
-
+char matrice[1][7] = {
+        {0,1,2,3,4,5,6}
+};
 
 struct ThreadData {
     int seconds;
