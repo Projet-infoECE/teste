@@ -20,6 +20,10 @@ char matrix[ROWS][COLS] = {
 };// Matrice du jeux
 
 
+struct ThreadData {
+    int seconds;
+    int isRunning;
+};
 void afficherChronometre(int seconds) {// Affiche le score par rapport au temps 
     printf("\nTemps ecoule : %d secondes", 120-seconds);
 }
