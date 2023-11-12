@@ -136,7 +136,7 @@ void initialiserMatrice() {
     matrix[initialRow][initialCol] = 'P';
 
 }
-int isPaused =0;
+
 void deplacment(){
     initialiserMatrice();
     char commande;
@@ -187,7 +187,7 @@ void deplacment(){
 
                     afficherMatrice();
                     afficherScore(120 - threadData.seconds);
-                    printf("\n GAGNE ");
+                    printf("\n GAGNE ");// Fin du jeu 
                     return;
                 }
                 else{
@@ -196,7 +196,7 @@ void deplacment(){
                     afficherMatrice();
                 }
                 
-
+// les cas suivant suivent les conditions a part que leur position dasn la matrice est modifier 
                 break;
             case 's': // Bas
                 if (personnageRow < ROWS - 1 && matrix[personnageRow + 1][personnageCol] == 0 && !(matrix[personnageRow + 1][personnageCol] == 2) || matrix[personnageRow + 1][personnageCol] == 3 || (matrix[personnageRow + 1][personnageCol] == 4)||matrix[personnageRow+1][personnageCol] == 7||matrix[personnageRow+1][personnageCol] == 8) {
