@@ -99,7 +99,7 @@ void afficherMatrice() {
                     printf("%c", 0x05);//bloc de point
                     break;
                 case 5:
-                    printf("s");// spwan du joueur
+                    printf("p");// spwan du joueur
                     break;
                 case 6:
                     printf("%c", 0x06);
