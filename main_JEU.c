@@ -3,10 +3,60 @@
 #include <windows.h>
 #include <unistd.h>
 #include <pthread.h>
+
 #define ROWS 10
 #define COLS 20
-
-char matrix[ROWS][COLS] = {
+char matrices[3][ROWS][COLS] = {
+        {
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1},
+                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        },
+        {
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
+                {1, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 2, 8, 2, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 4, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1},
+                {1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        },
+        {
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1},
+                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        }
+};
+char matrice0[ROWS][COLS] = {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1},
+        {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};// Matrice du jeux
+char matrice1[ROWS][COLS] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
         {1, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
         {1, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 1},
@@ -17,17 +67,30 @@ char matrix[ROWS][COLS] = {
         {1, 4, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1},
         {1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-};// Matrice du jeux
-
+};
+char matrice2[ROWS][COLS] = {
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1},
+                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        };
 
 struct ThreadData {
     int seconds;
     int isRunning;
 };
-void afficherChronometre(int seconds) {// Affiche le score par rapport au temps 
+
+
+void afficherChronometre(int seconds) {// Affiche le score par rapport au temps
     printf("\nTemps ecoule : %d secondes", 120-seconds);
 }
-void *chronometre(void *data) {//mise en place du chronometre 
+void *chronometre(void *data) {//mise en place du chronometre
     struct ThreadData *threadData = (struct ThreadData *)data;
 
     while (threadData->isRunning) {
@@ -46,11 +109,12 @@ void afficherMenu() {
     printf("1. Lancer le jeu\n");
     printf("2. Regle\n");
     printf("3. Option\n");
-    printf("4. Quitter\n");
+    printf("4. Mot de passe\n");
+    printf("5. Quitter\n");
 }
 
 void Regle(){
- printf("***Bienvenue sur le jeu Snoopy's Magic Show!***\n");
+    printf("***Bienvenue sur le jeu Snoopy's Magic Show!***\n");
 
     printf("-->Pour profiter pleinement du jeu, il est important\n d'en comprendre le fonctionnement et de bien suivre\n les regles qui lui sont attribuees:\n");
     printf("1.Afin de valider un niveau, il est necessaire d'attraper les 4 oiseaux situes dans les quatres coins de la map.\n");
@@ -60,7 +124,7 @@ void Regle(){
     printf("5.Des blocs pieges sont aussi dissimules parmi l'ensemble des blocs de la map, si Snoopy en heurte un,alors celui-ci perd une vie.\n");
     printf("6. Enfin si Snoopy utilise ses 3 vies avant de terminer le niveau,le joueur doit relancer le jeu et recommencer depuis le debut(GAME OVER).\n");
     printf("***Voila c'est a vous maintenant!***\n-->BONNE CHASSE<--");// ecrire les régles
-    }
+}
 
 void Option(){
     printf("Mouvement:-aller a droite-->appuyer sur 'd'\n");
@@ -76,13 +140,13 @@ void afficherScore(int tempsRestant) {
 
 
 // Fonction pour afficher la matrice
-void afficherMatrice() {
+void afficherMatrice(char matrix[ROWS][COLS] ) {
     int clk=0;
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
             switch (matrix[i][j]) {
                 case 0:
-                    printf(" ");//bloc vide 
+                    printf(" ");//bloc vide
                     break;
                 case 1:
                     printf("%c", 0xDB);//mur incassable
@@ -91,7 +155,7 @@ void afficherMatrice() {
                     printf("%c", 0xDB);//mur incassable dasn la map
                     break;
                 case 3:
-                    printf("%c", 0xDB);//bloc cassable 
+                    printf("%c", 0xDB);//bloc cassable
                     break;
                 case 4:
                     printf("%c", 0x05);//bloc de point
@@ -129,7 +193,7 @@ void afficherMatrice() {
 }
 
 // Fonction pour initialiser la matrice avec le personnage
-void initialiserMatrice() {
+void initialiserMatrice(char matrix[ROWS][COLS] ) {
     // Placer le personnage au centre de la matrice
     int initialRow = ROWS / 2;
     int initialCol = COLS / 2;
@@ -137,16 +201,76 @@ void initialiserMatrice() {
 
 }
 
-void deplacment(){
-    initialiserMatrice();
+void sauvegarderMatrice(char matrix[ROWS][COLS], int tempsRestant) {
+    FILE *fichier;
+    char nomFichier[100];
+
+    printf("Entrez le nom du fichier de sauvegarde : ");
+    scanf("%s", nomFichier);
+
+    fichier = fopen(nomFichier, "w");
+
+    if (fichier == NULL) {
+        printf("Erreur lors de l'ouverture du fichier !");
+        return;
+    }
+
+    fprintf(fichier, "%d\n", tempsRestant);
+
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            fprintf(fichier, "%d ", matrix[i][j]);
+        }
+        fprintf(fichier, "\n");
+    }
+
+    fclose(fichier);
+
+    printf("Matrice sauvegardee avec succes dans le fichier : %s\n", nomFichier);
+}
+
+void chargerMatrice(char matrix[ROWS][COLS], int *tempsRestant) {
+    FILE *fichier;
+    char nomFichier[100];
+
+    printf("Entrez le nom du fichier a charger : ");
+    scanf("%s", nomFichier);
+
+    fichier = fopen(nomFichier, "r");
+
+    if (fichier == NULL) {
+        printf("Erreur lors de l'ouverture du fichier !");
+        return;
+    }
+
+    fscanf(fichier, "%d", tempsRestant);
+
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            fscanf(fichier, "%d", &matrix[i][j]);
+        }
+    }
+
+    fclose(fichier);
+
+    printf("Matrice chargee avec succes depuis le fichier : %s\n", nomFichier);
+}
+
+
+void deplacment(char matrix[ROWS][COLS]){
+    initialiserMatrice(matrix);
     char commande;
     int personnageRow = ROWS / 2;
     int personnageCol = COLS / 2;
     int point = 0;
     int vie = 3;
     int Game = 0;
-    afficherMatrice();
+    int current_matrice = 0;
+    int niveau = 0;
+
+    afficherMatrice(matrix);
     struct ThreadData threadData = {0, 1};
+
 
     // Création du thread pour le chronomètre
     pthread_t chronometreThread;
@@ -162,7 +286,7 @@ void deplacment(){
 
             case 'z': // Haut
                 if (personnageRow > 0 && matrix[personnageRow - 1][personnageCol] == 0 && !(matrix[personnageRow - 1][personnageCol] == 2) || matrix[personnageRow - 1][personnageCol] == 3 || matrix[personnageRow - 1][personnageCol] ==4||matrix[personnageRow - 1][personnageCol] == 6|| (matrix[personnageRow-1][personnageCol] == 7)||matrix[personnageRow-1][personnageCol] == 8){
-                        // Condtion si le mur n'est pas incassable 
+                    // Condtion si le mur n'est pas incassable
                     if (matrix[personnageRow-1][personnageCol] == 4) {
                         point = point +1;
                     }
@@ -171,13 +295,13 @@ void deplacment(){
 //
 //                        printf("teste\n ");
 //                    }
-                    if (matrix[personnageRow-1][personnageCol] == 7){// ajoute de la vie 
+                    if (matrix[personnageRow-1][personnageCol] == 7){// ajoute de la vie
                         vie = vie +1;
                     }
-                    if (matrix[personnageRow-1][personnageCol] == 8){// enleve de la vie 
+                    if (matrix[personnageRow-1][personnageCol] == 8){// enleve de la vie
                         vie = vie -1;
                     }
-                        // modifie la matrice pour faire offfice de déplacment 
+                    // modifie la matrice pour faire offfice de déplacment
                     matrix[personnageRow][personnageCol] = 0;
                     personnageRow--;
                     matrix[personnageRow][personnageCol] = 5;
@@ -185,18 +309,22 @@ void deplacment(){
                 if (point == 4){
                     system("cls");
 
-                    afficherMatrice();
+                    afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    printf("\n GAGNE ");// Fin du jeu 
-                    return;
+                    printf("\nGAGNE, vous avez fini le niveau");// Fin du jeu
+                    threadData.isRunning = 0;
+                    pthread_join(chronometreThread, NULL);
+                    sleep(4);
+                    system("cls");
+                    break;
                 }
                 else{
                     system("cls");
                     Sleep(10);
-                    afficherMatrice();
+                    afficherMatrice(matrix);
                 }
-                
-// les cas suivant suivent les conditions a part que leur position dasn la matrice est modifier 
+
+// les cas suivant suivent les conditions a part que leur position dasn la matrice est modifier
                 break;
             case 's': // Bas
                 if (personnageRow < ROWS - 1 && matrix[personnageRow + 1][personnageCol] == 0 && !(matrix[personnageRow + 1][personnageCol] == 2) || matrix[personnageRow + 1][personnageCol] == 3 || (matrix[personnageRow + 1][personnageCol] == 4)||matrix[personnageRow+1][personnageCol] == 7||matrix[personnageRow+1][personnageCol] == 8) {
@@ -215,15 +343,19 @@ void deplacment(){
                 }
                 if (point == 4){
                     system("cls");
-                    afficherMatrice();
+                    afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    printf("\nGAGNE");
-                    return;
+                    printf("\nGAGNE, vous avez fini le niveau");
+                    threadData.isRunning = 0;
+                    pthread_join(chronometreThread, NULL);
+                    sleep(4);
+                    system("cls");
+                    break;
                 }
                 else{
                     system("cls");
                     Sleep(10);
-                    afficherMatrice();
+                    afficherMatrice(matrix);
                 }
 
                 break;
@@ -245,15 +377,19 @@ void deplacment(){
                 }
                 if (point == 4){
                     system("cls");
-                    afficherMatrice();
+                    afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    printf("\nGAGNE");
-                    return;
+                    printf("\nGAGNE, vous avez fini le niveau");
+                    threadData.isRunning = 0;
+                    pthread_join(chronometreThread, NULL);
+                    sleep(4);
+                    system("cls");
+                    break;
                 }
                 else{
                     system("cls");
                     Sleep(10);
-                    afficherMatrice();
+                    afficherMatrice(matrix);
                 }
                 break;
             case 'd': // Droite
@@ -273,34 +409,121 @@ void deplacment(){
                 }
                 if (point == 4){
                     system("cls");
-                    afficherMatrice();
+                    afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    printf("\nGAGNE");
+                    printf("\nGAGNE, vous avez fini le niveau");
+                    threadData.isRunning = 0;
+                    pthread_join(chronometreThread, NULL);
+                    sleep(4);
+                    system("cls");
 
-                    return;
+
+                    break;
                 }
                 else{
                     system("cls");
                     Sleep(10);
-                    afficherMatrice();
+                    afficherMatrice(matrix);
                 }
                 break;
             case 'r': // Quitter le jeu
                 threadData.isRunning = 0;
+
                 pthread_join(chronometreThread, NULL);
+                return;
+                break;
+            case 'v': // Touche 's' pour sauvegarder
+                threadData.isRunning = 0;
+                sauvegarderMatrice(matrix, 120 - threadData.seconds);
+                sleep(10);
+                break;
+//            case 'c': // Touche 'c' pour charger une matrice sauvegardée
+//                chargerMatrice(matrix, &threadData.seconds);
+//                break;
             default:
                 break;
         }
 
-        printf("NB point = %d\f", point);
-        printf("Vie: %d", vie );
+
+        if (point == 4) {
+            threadData.isRunning = 0;
+
+            Sleep(2000); // Attendre 4 secondes
+
+            if (current_matrice < 3 ) {
+                current_matrice++;
+                niveau = niveau+1;
+            } else {
+                // Si vous avez atteint la dernière matrice, vous pouvez faire ce que vous voulez ici
+                // Par exemple, afficher un message de victoire ou simplement terminer le jeu
+                printf("Vous avez terminé toutes les matrices!\n");
+                return; // Terminer le jeu
+            }
+            if ((matrix == matrices[2]) && niveau ==2){
+                system("cls");
+                printf("Vous avez finis le jeu ");
+                return;
+            }
+
+            // Réinitialiser les variables du jeu et utiliser la nouvelle matrice
+            // Réinitialisation de point, Game, et autres variables si nécessaire
+
+            initialiserMatrice(matrices[current_matrice]); // initialiser la nouvelle matrice
+            matrix = matrices[current_matrice];
+            point = 0;
+            vie = 3;
+            struct ThreadData threadData = {0, 1};
+            pthread_t chronometreThread;
+            pthread_create(&chronometreThread, NULL, chronometre, (void *)&threadData);
+
+
+            // Afficher un message indiquant le passage à la nouvelle matrice
+
+
+            // Reprise du jeu avec la nouvelle matrice
+            continue;
+        }
+
+        if (!(point==4) && !(vie == 0)){
+            printf("NB point = %d\f", point);
+            printf("Vie: %d", vie );
+
+        }
+
         if (vie ==0){
             system("cls");
             printf("\nGAME OVER");
             return;
         }
+
     }
+
 }
+void mdp(){
+    int choix_mdp = 0;
+    printf("Pour sauter les niveaux voici les mots de passe possible : \n   -niveau 1 => 0, \n   -niveau 2 => 1, \n   -niveau 3 => 2. \n");
+    scanf("%d", &choix_mdp);
+    switch (choix_mdp) {
+        case 0: {
+            deplacment(matrice0);
+            break;
+        }
+        case 1: {
+            deplacment(matrice1);
+            break;
+        }
+        case 2: {
+            deplacment(matrice2);
+            break;
+        }
+        default:
+            printf("Choix invalide. Veuillez sélectionner une option valide.\n");
+            break;
+
+        }
+
+    }
+
 void lancement_du_menu(){
 
     int choix, s = 5;
@@ -313,7 +536,11 @@ void lancement_du_menu(){
 
     switch (choix) {
         case 1: {
-            deplacment();
+            deplacment(matrice0);
+            sleep(3);
+
+
+
             // Arrêt du chronomètre
             break;
         }
@@ -321,12 +548,16 @@ void lancement_du_menu(){
             Regle();
             // Ajoutez votre code pour l'option 2 ici
             printf("\n");
-            sleep(20);
-            deplacment();
+            sleep(10);
+            deplacment(matrice0);
             break;
         case 3:
             Option();
             sleep(10);
+            deplacment(matrice0);
+            break;
+        case 4:
+            mdp();
             break;
         case 'l':
         case 'L':
