@@ -587,6 +587,8 @@ void lancement_du_menu(){
         case 4:
             mdp();
             break;
+        case 5:
+            break;
         default:
             printf("Choix invalide. Veuillez sélectionner une option valide.\n");
             break;
