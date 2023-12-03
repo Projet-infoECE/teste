@@ -122,7 +122,8 @@ void Regle(){
     printf("4.Durant la partie une balle se deplace sur la map, si celle-ci touche Snoopy,alors celui-ci perd une vie.\n");
     printf("5.Des blocs pieges sont aussi dissimules parmi l'ensemble des blocs de la map, si Snoopy en heurte un,alors celui-ci perd une vie.\n");
     printf("6. Enfin si Snoopy utilise ses 3 vies avant de terminer le niveau,le joueur doit relancer le jeu et recommencer depuis le debut(GAME OVER).\n");
-    printf("***Voila c'est a vous maintenant!***\n-->BONNE CHASSE<--");// ecrire les régles
+    printf("***Voila c'est a vous maintenant!***\n-->BONNE CHASSE<--");
+        printf("Alessandro efface ce que j'ai ecrit stp sah!");// ecrire les régles
 }
 
 void Option(){
