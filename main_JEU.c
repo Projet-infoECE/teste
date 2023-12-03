@@ -9,7 +9,7 @@
 char matrices[3][ROWS][COLS] = {
         {
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
+                {1, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
                 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                 {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -33,26 +33,26 @@ char matrices[3][ROWS][COLS] = {
         },
         {
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1},
-                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1},
+                {1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 3, 4, 3, 0, 0, 0, 0, 1},
+                {1, 0, 0, 1, 0, 1, 8, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                {1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 4, 1},
+                {1, 4, 0, 3, 0, 0, 0, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
         }
 };
 char matrice0[ROWS][COLS] = {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
+        {1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1},
         {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };// Matrice du jeux
@@ -68,18 +68,18 @@ char matrice1[ROWS][COLS] = {
         {1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
-char matrice2[ROWS][COLS] = {
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-                {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4, 1},
-                {1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-        };
+char matrice2[ROWS][COLS] =         {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1},
+        {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 3, 4, 3, 0, 0, 0, 0, 1},
+        {1, 0, 0, 1, 0, 1, 8, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+        {1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 4, 1},
+        {1, 4, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
 
 struct ThreadData {
     int seconds;
@@ -172,14 +172,9 @@ void afficherMatrice(char matrix[ROWS][COLS] ) {
                 case 8:
                     printf("%c", 0xDB);//enleve de la vie
                     break;
-//                case 9:
-//                    for (int n = 0; n < 60; n++) {
-//                        printf("\r"); // Efface la ligne
-//                        printf("\r%d", clk); // Affiche la nouvelle valeur de clk
-//                        fflush(stdout); // Vide le tampon de sortie
-//                        sleep(1);
-//                        clk = clk + 1;
-//                    }
+                case 9:
+                    printf("b");
+
                     break;
                 default:
                     printf(" ");
@@ -253,7 +248,7 @@ void chargerMatrice(char matrix[ROWS][COLS], int *tempsRestant) {
 
     fclose(fichier);
 
-    printf("Matrice chargee avec succes depuis le fichier : %s\n", nomFichier);
+
 }
 
 
@@ -267,6 +262,10 @@ void deplacment(char matrix[ROWS][COLS]){
     int Game = 0;
     int current_matrice = 0;
     int niveau = 0;
+    int posX = 1;
+    int posY = 1;
+    int dirX = 1;
+    int dirY = 1;
 
     afficherMatrice(matrix);
     struct ThreadData threadData = {0, 1};
@@ -280,6 +279,44 @@ void deplacment(char matrix[ROWS][COLS]){
     while (!Game) {
         commande = getch();
         int clk = 0;
+        int nextX = posX + dirX;
+        int nextY = posY + dirY;
+
+        // Vérification des rebonds
+        if (matrix[nextX][nextY] != 1) {
+            posX = nextX;
+            posY = nextY;
+            matrix[nextX-dirX][nextY-dirY]= 0;
+            matrix[posX][posY]= 9;
+
+
+
+        } else {
+            // Rebond sur les murs
+            if (matrix[nextX][posY] == 1) {
+                dirX = -dirX;
+                printf("murX");
+                matrix[nextX][nextY]= 0;
+                matrix[nextX][nextY]= 9;
+                matrix[nextX][nextY]=1;
+
+            }
+            if (matrix[posX][nextY] == 1) {
+                dirY = -dirY;
+                printf("murX");
+                matrix[nextX][nextY]= 0;
+                matrix[nextX][nextY]= 9;
+                matrix[nextX][nextY]=1;
+            }
+
+
+
+        }
+
+
+
+
+
 
         // Déplacer le personnage en fonction de la commande
         switch (commande) {
@@ -301,18 +338,26 @@ void deplacment(char matrix[ROWS][COLS]){
                     if (matrix[personnageRow-1][personnageCol] == 8){// enleve de la vie
                         vie = vie -1;
                     }
+                    if (matrix[personnageRow][personnageCol] == 9){
+                        vie = vie-1;
+                    }
                     // modifie la matrice pour faire offfice de déplacment
                     matrix[personnageRow][personnageCol] = 0;
                     personnageRow--;
                     matrix[personnageRow][personnageCol] = 5;
                 }
+
+
+
                 if (point == 4){
                     system("cls");
 
                     afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    printf("\nGAGNE, vous avez fini le niveau");// Fin du jeu
                     threadData.isRunning = 0;
+                    printf("\nGAGNE, vous avez fini le niveau");// Fin du jeu
+                    niveau=niveau +1;
+
                     pthread_join(chronometreThread, NULL);
                     sleep(4);
                     system("cls");
@@ -337,6 +382,9 @@ void deplacment(char matrix[ROWS][COLS]){
                     if (matrix[personnageRow+1][personnageCol] == 8){
                         vie = vie-1;
                     }
+                    if (matrix[personnageRow][personnageCol] == 9){
+                        vie = vie-1;
+                    }
                     matrix[personnageRow][personnageCol] = 0;
                     personnageRow++;
                     matrix[personnageRow][personnageCol] = 5;
@@ -345,8 +393,10 @@ void deplacment(char matrix[ROWS][COLS]){
                     system("cls");
                     afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    printf("\nGAGNE, vous avez fini le niveau");
                     threadData.isRunning = 0;
+                    printf("\nGAGNE, vous avez fini le niveau");
+                    niveau=niveau +1;
+
                     pthread_join(chronometreThread, NULL);
                     sleep(4);
                     system("cls");
@@ -374,13 +424,21 @@ void deplacment(char matrix[ROWS][COLS]){
                     if (matrix[personnageRow][personnageCol-1] == 8){
                         vie =vie-1;
                     }
+                    if (matrix[personnageRow][personnageCol] == 9){
+                        vie = vie-1;
+                    }
+                    if (matrix[personnageRow][personnageCol] == 9){
+                        vie = vie-1;
+                    }
                 }
                 if (point == 4){
                     system("cls");
                     afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    printf("\nGAGNE, vous avez fini le niveau");
                     threadData.isRunning = 0;
+                    printf("\nGAGNE, vous avez fini le niveau");
+                    niveau=niveau +1;
+
                     pthread_join(chronometreThread, NULL);
                     sleep(4);
                     system("cls");
@@ -403,6 +461,9 @@ void deplacment(char matrix[ROWS][COLS]){
                     if (matrix[personnageRow][personnageCol+1] == 8){
                         vie =vie-1;
                     }
+                    if (matrix[personnageRow][personnageCol] == 9){
+                        vie = vie-1;
+                    }
                     matrix[personnageRow][personnageCol] = 0;
                     personnageCol++;
                     matrix[personnageRow][personnageCol] = 5;
@@ -411,8 +472,10 @@ void deplacment(char matrix[ROWS][COLS]){
                     system("cls");
                     afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    printf("\nGAGNE, vous avez fini le niveau");
                     threadData.isRunning = 0;
+                    printf("\nGAGNE, vous avez fini le niveau");
+                    niveau=niveau +1;
+
                     pthread_join(chronometreThread, NULL);
                     sleep(4);
                     system("cls");
@@ -437,9 +500,14 @@ void deplacment(char matrix[ROWS][COLS]){
                 sauvegarderMatrice(matrix, 120 - threadData.seconds);
                 sleep(10);
                 break;
-//            case 'c': // Touche 'c' pour charger une matrice sauvegardée
-//                chargerMatrice(matrix, &threadData.seconds);
-//                break;
+            case 'c': // Touche 'c' pour charger une matrice sauvegardée
+                threadData.isRunning = 0;
+                chargerMatrice(matrix, &threadData.seconds);
+                break;
+            case 'p': // Touche 'c' pour charger une matrice sauvegardée
+                threadData.isRunning = 0;
+                sleep(5);
+                break;
             default:
                 break;
         }
@@ -452,18 +520,14 @@ void deplacment(char matrix[ROWS][COLS]){
 
             if (current_matrice < 3 ) {
                 current_matrice++;
-                niveau = niveau+1;
+
             } else {
                 // Si vous avez atteint la dernière matrice, vous pouvez faire ce que vous voulez ici
                 // Par exemple, afficher un message de victoire ou simplement terminer le jeu
                 printf("Vous avez terminé toutes les matrices!\n");
                 return; // Terminer le jeu
             }
-            if ((matrix == matrices[2]) && niveau ==2){
-                system("cls");
-                printf("Vous avez finis le jeu ");
-                return;
-            }
+
 
             // Réinitialiser les variables du jeu et utiliser la nouvelle matrice
             // Réinitialisation de point, Game, et autres variables si nécessaire
@@ -493,6 +557,12 @@ void deplacment(char matrix[ROWS][COLS]){
         if (vie ==0){
             system("cls");
             printf("\nGAME OVER");
+            return;
+        }
+        if (niveau == 3){
+            system("cls");
+            threadData.isRunning = 0;
+            printf("vous avez finis le jeu");
             return;
         }
 
@@ -538,15 +608,10 @@ void lancement_du_menu(){
         case 1: {
             deplacment(matrice0);
             sleep(3);
-
-
-
-            // Arrêt du chronomètre
             break;
         }
         case 2:
             Regle();
-            // Ajoutez votre code pour l'option 2 ici
             printf("\n");
             sleep(10);
             deplacment(matrice0);
