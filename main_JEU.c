@@ -6,6 +6,8 @@
 
 #define ROWS 10
 #define COLS 20
+
+
 char matrices[3][ROWS][COLS] = {
         {
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -98,12 +100,9 @@ void *chronometre(void *data) {//mise en place du chronometre
         Sleep(1000);
         threadData->seconds++;
     }
-
-
     pthread_exit(NULL);
 }
 
-// Affichage du menu
 void afficherMenu() {
     printf("Menu:\n");
     printf("1. Lancer le jeu\n");
@@ -137,9 +136,6 @@ void afficherScore(int tempsRestant) {
     printf("\nScore: %d", score);
 }
 
-
-
-// Fonction pour afficher la matrice
 void afficherMatrice(char matrix[ROWS][COLS] ) {
     int clk=0;
     for (int i = 0; i < ROWS; i++) {
@@ -174,7 +170,6 @@ void afficherMatrice(char matrix[ROWS][COLS] ) {
                     break;
                 case 9:
                     printf("b");
-
                     break;
                 default:
                     printf(" ");
@@ -183,8 +178,6 @@ void afficherMatrice(char matrix[ROWS][COLS] ) {
         }
         printf("\n");
     }
-
-
 }
 
 // Fonction pour initialiser la matrice avec le personnage
@@ -193,7 +186,6 @@ void initialiserMatrice(char matrix[ROWS][COLS] ) {
     int initialRow = ROWS / 2;
     int initialCol = COLS / 2;
     matrix[initialRow][initialCol] = 'P';
-
 }
 
 void sauvegarderMatrice(char matrix[ROWS][COLS], int tempsRestant) {
@@ -202,25 +194,19 @@ void sauvegarderMatrice(char matrix[ROWS][COLS], int tempsRestant) {
 
     printf("Entrez le nom du fichier de sauvegarde : ");
     scanf("%s", nomFichier);
-
     fichier = fopen(nomFichier, "w");
-
     if (fichier == NULL) {
         printf("Erreur lors de l'ouverture du fichier !");
         return;
     }
-
     fprintf(fichier, "%d\n", tempsRestant);
-
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
             fprintf(fichier, "%d ", matrix[i][j]);
         }
         fprintf(fichier, "\n");
     }
-
     fclose(fichier);
-
     printf("Matrice sauvegardee avec succes dans le fichier : %s\n", nomFichier);
 }
 
@@ -230,25 +216,18 @@ void chargerMatrice(char matrix[ROWS][COLS], int *tempsRestant) {
 
     printf("Entrez le nom du fichier a charger : ");
     scanf("%s", nomFichier);
-
     fichier = fopen(nomFichier, "r");
-
     if (fichier == NULL) {
         printf("Erreur lors de l'ouverture du fichier !");
         return;
     }
-
     fscanf(fichier, "%d", tempsRestant);
-
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
             fscanf(fichier, "%d", &matrix[i][j]);
         }
     }
-
     fclose(fichier);
-
-
 }
 
 
@@ -288,9 +267,6 @@ void deplacment(char matrix[ROWS][COLS]){
             posY = nextY;
             matrix[nextX-dirX][nextY-dirY]= 0;
             matrix[posX][posY]= 9;
-
-
-
         } else {
             // Rebond sur les murs
             if (matrix[nextX][posY] == 1) {
@@ -299,7 +275,6 @@ void deplacment(char matrix[ROWS][COLS]){
                 matrix[nextX][nextY]= 0;
                 matrix[nextX][nextY]= 9;
                 matrix[nextX][nextY]=1;
-
             }
             if (matrix[posX][nextY] == 1) {
                 dirY = -dirY;
@@ -308,19 +283,10 @@ void deplacment(char matrix[ROWS][COLS]){
                 matrix[nextX][nextY]= 9;
                 matrix[nextX][nextY]=1;
             }
-
-
-
         }
-
-
-
-
-
 
         // Déplacer le personnage en fonction de la commande
         switch (commande) {
-
             case 'z': // Haut
                 if (personnageRow > 0 && matrix[personnageRow - 1][personnageCol] == 0 && !(matrix[personnageRow - 1][personnageCol] == 2) || matrix[personnageRow - 1][personnageCol] == 3 || matrix[personnageRow - 1][personnageCol] ==4||matrix[personnageRow - 1][personnageCol] == 6|| (matrix[personnageRow-1][personnageCol] == 7)||matrix[personnageRow-1][personnageCol] == 8){
                     // Condtion si le mur n'est pas incassable
@@ -346,8 +312,6 @@ void deplacment(char matrix[ROWS][COLS]){
                     personnageRow--;
                     matrix[personnageRow][personnageCol] = 5;
                 }
-
-
 
                 if (point == 4){
                     system("cls");
