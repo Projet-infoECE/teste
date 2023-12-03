@@ -557,5 +557,46 @@ void mdp(){
         }
 
     }
+void lancement_du_menu(){
 
+    int choix, s = 5;
+    char c;
+    int tmps=0;
+    int commande = getch();
+    afficherMenu();
+    printf("Choisissez une option : ");
+    scanf("%d", &choix);
+
+    switch (choix) {
+        case 1: {
+            deplacment(matrice0);
+            sleep(3);
+            break;
+        }
+        case 2:
+            Regle();
+            printf("\n");
+            sleep(10);
+            deplacment(matrice0);
+            break;
+        case 3:
+            Option();
+            sleep(10);
+            deplacment(matrice0);
+            break;
+        case 4:
+            mdp();
+            break;
+        case 'l':
+        case 'L':
+            break;
+        default:
+            printf("Choix invalide. Veuillez sélectionner une option valide.\n");
+            break;
+    }
+}
+int main() {
+    lancement_du_menu();
+    return 0;
+}
 
