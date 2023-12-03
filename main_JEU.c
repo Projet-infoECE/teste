@@ -123,9 +123,7 @@ void Regle(){
     printf("5.Des blocs pieges sont aussi dissimules parmi l'ensemble des blocs de la map, si Snoopy en heurte un,alors celui-ci perd une vie.\n");
     printf("6. Enfin si Snoopy utilise ses 3 vies avant de terminer le niveau,le joueur doit relancer le jeu et recommencer depuis le debut(GAME OVER).\n");
     printf("***Voila c'est a vous maintenant!***\n-->BONNE CHASSE<--");
-        printf("Alessandro efface ce que j'ai ecrit stp sah!");
-        scanf("Les oiseaux sont beaux aujourd'hui, les maths c'est trop  bien, surtout quand t'étudies avec MR PI le goat. Demain réveil à 5h30 pour aller a la salle a 6h30 avec un pote de frlkn, l avenir appartient aux gens qui se levent tot dtf
-                . Tout ca pour dire que je vais me coucher tot ce soir voila :)");// ecrire les régles
+       // ecrire les régles
 }
 
 void Option(){
