@@ -1,13 +1,11 @@
 #include <stdio.h>
-#include <conio.h>  // Cette bibliothèque est utilisée pour détecter les touches du clavier sous Windows
+#include <conio.h>
 #include <windows.h>
 #include <unistd.h>
 #include <pthread.h>
 
 #define ROWS 10
 #define COLS 20
-
-
 char matrices[3][ROWS][COLS] = {
         {
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -27,7 +25,7 @@ char matrices[3][ROWS][COLS] = {
                 {1, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 1},
                 {1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                 {1, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                {1, 2, 8, 2, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 2, 8, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                 {1, 0, 0, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                 {1, 4, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 1},
                 {1, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -35,7 +33,7 @@ char matrices[3][ROWS][COLS] = {
         },
         {
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 4, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                 {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1},
                 {1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1},
                 {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1},
@@ -72,15 +70,15 @@ char matrice1[ROWS][COLS] = {
 };
 char matrice2[ROWS][COLS] =         {
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {1, 4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1},
         {1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1},
         {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1},
         {1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 3, 4, 3, 0, 0, 0, 0, 1},
         {1, 0, 0, 1, 0, 1, 8, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
         {1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 4, 1},
-        {1, 4, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+        {1, 4, 0, 3, 0, 0, 0, 1, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 };
 
 struct ThreadData {
@@ -100,9 +98,12 @@ void *chronometre(void *data) {//mise en place du chronometre
         Sleep(1000);
         threadData->seconds++;
     }
+
+
     pthread_exit(NULL);
 }
 
+// Affichage du menu
 void afficherMenu() {
     printf("Menu:\n");
     printf("1. Lancer le jeu\n");
@@ -112,7 +113,7 @@ void afficherMenu() {
     printf("5. Quitter\n");
 }
 
-void Regle(){
+void Regle(){ // Affiche les régles
     printf("***Bienvenue sur le jeu Snoopy's Magic Show!***\n");
 
     printf("-->Pour profiter pleinement du jeu, il est important\n d'en comprendre le fonctionnement et de bien suivre\n les regles qui lui sont attribuees:\n");
@@ -122,25 +123,26 @@ void Regle(){
     printf("4.Durant la partie une balle se deplace sur la map, si celle-ci touche Snoopy,alors celui-ci perd une vie.\n");
     printf("5.Des blocs pieges sont aussi dissimules parmi l'ensemble des blocs de la map, si Snoopy en heurte un,alors celui-ci perd une vie.\n");
     printf("6. Enfin si Snoopy utilise ses 3 vies avant de terminer le niveau,le joueur doit relancer le jeu et recommencer depuis le debut(GAME OVER).\n");
-    printf("***Voila c'est a vous maintenant!***\n-->BONNE CHASSE<--");
-       // ecrire les régles
-        
+    printf("***Voila c'est a vous maintenant!***\n-->BONNE CHASSE<--");// ecrire les régles
 }
 
-void Option(){
+void Option(){// Affiche les options
     printf("Mouvement:-aller a droite-->appuyer sur 'd'\n");
     printf("           -aller a gauche-->appuyer sur 'q'\n");
     printf("           -aller en haut-->appuyer sur 'z'\n");
     printf("           -aller en bas-->appuyer sur 's'\n");
 }
-void afficherScore(int tempsRestant) {
+void afficherScore(int tempsRestant) {// Affiche les scores en focntion du temps
     int score = tempsRestant * 100;
     printf("\nScore: %d", score);
 }
 
+
+
+// Fonction pour afficher la matrice
 void afficherMatrice(char matrix[ROWS][COLS] ) {
     int clk=0;
-    for (int i = 0; i < ROWS; i++) {
+    for (int i = 0; i < ROWS; i++) {//On parcours la matrice
         for (int j = 0; j < COLS; j++) {
             switch (matrix[i][j]) {
                 case 0:
@@ -172,6 +174,7 @@ void afficherMatrice(char matrix[ROWS][COLS] ) {
                     break;
                 case 9:
                     printf("b");
+
                     break;
                 default:
                     printf(" ");
@@ -180,6 +183,8 @@ void afficherMatrice(char matrix[ROWS][COLS] ) {
         }
         printf("\n");
     }
+
+
 }
 
 // Fonction pour initialiser la matrice avec le personnage
@@ -188,48 +193,62 @@ void initialiserMatrice(char matrix[ROWS][COLS] ) {
     int initialRow = ROWS / 2;
     int initialCol = COLS / 2;
     matrix[initialRow][initialCol] = 'P';
+
 }
 
-void sauvegarderMatrice(char matrix[ROWS][COLS], int tempsRestant) {
+void sauvegarderMatrice(char matrix[ROWS][COLS], int tempsRestant) { // Sauvegarde la matrice
     FILE *fichier;
     char nomFichier[100];
 
     printf("Entrez le nom du fichier de sauvegarde : ");
     scanf("%s", nomFichier);
+
     fichier = fopen(nomFichier, "w");
-    if (fichier == NULL) {
+
+    if (fichier == NULL) {// affiche erreur si pas de fichier
         printf("Erreur lors de l'ouverture du fichier !");
         return;
     }
+
     fprintf(fichier, "%d\n", tempsRestant);
-    for (int i = 0; i < ROWS; i++) {
+
+    for (int i = 0; i < ROWS; i++) {// enregistrement de la matrice dans le fichier
         for (int j = 0; j < COLS; j++) {
             fprintf(fichier, "%d ", matrix[i][j]);
         }
         fprintf(fichier, "\n");
     }
+
     fclose(fichier);
+
     printf("Matrice sauvegardee avec succes dans le fichier : %s\n", nomFichier);
 }
 
-void chargerMatrice(char matrix[ROWS][COLS], int *tempsRestant) {
+void chargerMatrice(char matrix[ROWS][COLS], int *tempsRestant) {// Charge la matrice
     FILE *fichier;
     char nomFichier[100];
 
     printf("Entrez le nom du fichier a charger : ");
     scanf("%s", nomFichier);
+
     fichier = fopen(nomFichier, "r");
+
     if (fichier == NULL) {
         printf("Erreur lors de l'ouverture du fichier !");
         return;
     }
+
     fscanf(fichier, "%d", tempsRestant);
-    for (int i = 0; i < ROWS; i++) {
+
+    for (int i = 0; i < ROWS; i++) {// recuperer les donnée dans le fichier choisie
         for (int j = 0; j < COLS; j++) {
             fscanf(fichier, "%d", &matrix[i][j]);
         }
     }
+
     fclose(fichier);
+
+
 }
 
 
@@ -263,12 +282,15 @@ void deplacment(char matrix[ROWS][COLS]){
         int nextX = posX + dirX;
         int nextY = posY + dirY;
 
-        // Vérification des rebonds
+        // Deplacment de la balle si pas de rebond sur les mur
         if (matrix[nextX][nextY] != 1) {
             posX = nextX;
             posY = nextY;
             matrix[nextX-dirX][nextY-dirY]= 0;
             matrix[posX][posY]= 9;
+
+
+
         } else {
             // Rebond sur les murs
             if (matrix[nextX][posY] == 1) {
@@ -277,6 +299,7 @@ void deplacment(char matrix[ROWS][COLS]){
                 matrix[nextX][nextY]= 0;
                 matrix[nextX][nextY]= 9;
                 matrix[nextX][nextY]=1;
+
             }
             if (matrix[posX][nextY] == 1) {
                 dirY = -dirY;
@@ -285,10 +308,19 @@ void deplacment(char matrix[ROWS][COLS]){
                 matrix[nextX][nextY]= 9;
                 matrix[nextX][nextY]=1;
             }
+
+
+
         }
+
+
+
+
+
 
         // Déplacer le personnage en fonction de la commande
         switch (commande) {
+
             case 'z': // Haut
                 if (personnageRow > 0 && matrix[personnageRow - 1][personnageCol] == 0 && !(matrix[personnageRow - 1][personnageCol] == 2) || matrix[personnageRow - 1][personnageCol] == 3 || matrix[personnageRow - 1][personnageCol] ==4||matrix[personnageRow - 1][personnageCol] == 6|| (matrix[personnageRow-1][personnageCol] == 7)||matrix[personnageRow-1][personnageCol] == 8){
                     // Condtion si le mur n'est pas incassable
@@ -306,7 +338,7 @@ void deplacment(char matrix[ROWS][COLS]){
                     if (matrix[personnageRow-1][personnageCol] == 8){// enleve de la vie
                         vie = vie -1;
                     }
-                    if (matrix[personnageRow][personnageCol] == 9){
+                    if (matrix[personnageRow][personnageCol] == 9){ // enleve de la vie si touche la balle
                         vie = vie-1;
                     }
                     // modifie la matrice pour faire offfice de déplacment
@@ -315,16 +347,18 @@ void deplacment(char matrix[ROWS][COLS]){
                     matrix[personnageRow][personnageCol] = 5;
                 }
 
-                if (point == 4){
+
+
+                if (point == 4){ // Si tous les oiseuax son récupere alors on stop le niveau
                     system("cls");
 
                     afficherMatrice(matrix);
                     afficherScore(120 - threadData.seconds);
-                    threadData.isRunning = 0;
+                    threadData.isRunning = 0; // Le temps s'arrete
                     printf("\nGAGNE, vous avez fini le niveau");// Fin du jeu
                     niveau=niveau +1;
 
-                    pthread_join(chronometreThread, NULL);
+                    pthread_join(chronometreThread, NULL); // annule le chronometre
                     sleep(4);
                     system("cls");
                     break;
@@ -488,15 +522,9 @@ void deplacment(char matrix[ROWS][COLS]){
                 current_matrice++;
 
             } else {
-                // Si vous avez atteint la dernière matrice, vous pouvez faire ce que vous voulez ici
-                // Par exemple, afficher un message de victoire ou simplement terminer le jeu
                 printf("Vous avez terminé toutes les matrices!\n");
                 return; // Terminer le jeu
             }
-
-
-            // Réinitialiser les variables du jeu et utiliser la nouvelle matrice
-            // Réinitialisation de point, Game, et autres variables si nécessaire
 
             initialiserMatrice(matrices[current_matrice]); // initialiser la nouvelle matrice
             matrix = matrices[current_matrice];
@@ -506,26 +534,22 @@ void deplacment(char matrix[ROWS][COLS]){
             pthread_t chronometreThread;
             pthread_create(&chronometreThread, NULL, chronometre, (void *)&threadData);
 
-
-            // Afficher un message indiquant le passage à la nouvelle matrice
-
-
             // Reprise du jeu avec la nouvelle matrice
             continue;
         }
 
-        if (!(point==4) && !(vie == 0)){
+        if (!(point==4) && !(vie == 0)){ // Affichage de la vie et du score
             printf("NB point = %d\f", point);
             printf("Vie: %d", vie );
 
         }
 
-        if (vie ==0){
+        if (vie ==0){ // affiche game over si plus de vie
             system("cls");
             printf("\nGAME OVER");
             return;
         }
-        if (niveau == 3){
+        if (niveau == 3){ // si le jeux est fini quitte le jeu
             system("cls");
             threadData.isRunning = 0;
             printf("vous avez finis le jeu");
@@ -535,11 +559,11 @@ void deplacment(char matrix[ROWS][COLS]){
     }
 
 }
-void mdp(){
+void mdp(){ // mot de passe
     int choix_mdp = 0;
     printf("Pour sauter les niveaux voici les mots de passe possible : \n   -niveau 1 => 0, \n   -niveau 2 => 1, \n   -niveau 3 => 2. \n");
     scanf("%d", &choix_mdp);
-    switch (choix_mdp) {
+    switch (choix_mdp) {// verifie le choix du joueur
         case 0: {
             deplacment(matrice0);
             break;
@@ -559,7 +583,8 @@ void mdp(){
         }
 
     }
-void lancement_du_menu(){
+
+void lancement_du_menu(){ // lance le menu
 
     int choix, s = 5;
     char c;
@@ -569,27 +594,30 @@ void lancement_du_menu(){
     printf("Choisissez une option : ");
     scanf("%d", &choix);
 
-    switch (choix) {
+    switch (choix) {// verifie le cjoix du joueur
         case 1: {
-            deplacment(matrice0);
+            deplacment(matrice0);// lance la fonction du deplacement
             sleep(3);
             break;
         }
         case 2:
-            Regle();
+            Regle();// lance la fonction regles
             printf("\n");
-            sleep(10);
-            deplacment(matrice0);
+            sleep(6);
+            deplacment(matrice0);// lance la fonction du deplacement
             break;
         case 3:
-            Option();
-            sleep(10);
-            deplacment(matrice0);
+            Option();// lance la fonction option
+            sleep(5);
+            deplacment(matrice0);// lance la fonction du deplacement
             break;
         case 4:
             mdp();
             break;
         case 5:
+            return;
+        case 'L':
+
             break;
         default:
             printf("Choix invalide. Veuillez sélectionner une option valide.\n");
@@ -600,4 +628,3 @@ int main() {
     lancement_du_menu();
     return 0;
 }
-
