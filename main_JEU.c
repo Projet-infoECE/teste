@@ -124,6 +124,7 @@ void Regle(){
     printf("6. Enfin si Snoopy utilise ses 3 vies avant de terminer le niveau,le joueur doit relancer le jeu et recommencer depuis le debut(GAME OVER).\n");
     printf("***Voila c'est a vous maintenant!***\n-->BONNE CHASSE<--");
        // ecrire les régles
+        
 }
 
 void Option(){
