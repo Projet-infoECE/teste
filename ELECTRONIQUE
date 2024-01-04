@@ -1,4 +1,3 @@
-
   #include<Wire.h>
   #include <Adafruit_GFX.h>
   #include <Adafruit_SSD1306.h>
@@ -20,16 +19,20 @@
   #define SCREEN_WIDTH 128
   #define SCREEN_HEIGHT 64
   int sensorPin=A0;
-  int reading = 0;
-  float voltage = 0;
+  int onoff = A1;
   int btn1 = A2;
   int btn2 = A3;
   int buzzer = A6;
   int LedPin = A7;
+
+
+  int reading = 0;
+  float voltage = 0;
   int i = 0;
   int h = 0;
   int normal = 0;
   int ampm = 0;
+
 
   unsigned long lastUpdateTime = 0;
   unsigned long updateInterval = 100; // Mettez à jour toutes les 100 millisecondes (ou la valeur souhaitée)
@@ -42,34 +45,50 @@
 
 
   MD_Parola myDisplay = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
-
   Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT,&Wire,-1);
+
+
+
+
+
+  void Tone() {
+  tone(8, OCTAVE_4_DO, DUREE_TEMPS);
+  delay(DUREE_TEMPS);
+  tone(8, OCTAVE_4_DO, DUREE_TEMPS);
+  delay(DUREE_TEMPS);
+  tone(8, OCTAVE_4_DO, DUREE_TEMPS);
+  delay(DUREE_TEMPS);
+  tone(8, OCTAVE_4_RE, DUREE_TEMPS);
+  delay(DUREE_TEMPS);
+  tone(8, OCTAVE_4_MI, 2 * DUREE_TEMPS);
+  delay(2 * DUREE_TEMPS);
+  tone(8, OCTAVE_4_RE, 2 * DUREE_TEMPS);
+  delay(2 * DUREE_TEMPS);
+  tone(8, OCTAVE_4_DO, DUREE_TEMPS);
+  delay(DUREE_TEMPS);
+  tone(8, OCTAVE_4_MI, DUREE_TEMPS);
+  delay(DUREE_TEMPS);
+  tone(8, OCTAVE_4_RE, DUREE_TEMPS);
+  delay(DUREE_TEMPS);
+  tone(8, OCTAVE_4_RE, DUREE_TEMPS);
+  delay(DUREE_TEMPS);
+  tone(8, OCTAVE_4_DO, 4 * DUREE_TEMPS);
+  delay(4 * DUREE_TEMPS);
+}
+
+
 
   void NORMAL(){
 
         DateTime now = rtc.now();
-  
-    // Calculer le temps écoulé en secondes depuis le démarrage
     unsigned long elapsedSeconds = 1000*millis() / 1000;
-  
-    // Convertir le temps écoulé en heures, minutes et secondes
+
     int hours = elapsedSeconds / 3600;
     int minutes = (elapsedSeconds % 3600) / 60;
     int seconds = elapsedSeconds % 60;
 
   
-  /*
-    // Afficher le temps écoulé
-    Serial.print("Temps écoulé : ");
-    print2digits(hours % 24);
-    Serial.print(':');
-    print2digits(minutes);
-    Serial.print(':');
-    print2digits(seconds);
-    Serial.println();
-    */
-  
-    char timeStr[9]; // Pour stocker l'heure sous forme de chaîne de caractères (HH:MM:SS)
+    char timeStr[9];
     sprintf(timeStr, "%02d:%02d:%02d", hours, minutes, seconds);
     delay(1000);
     myDisplay.displayText(timeStr, PA_CENTER, 1000, 1000, PA_PRINT, PA_PRINT);
@@ -78,13 +97,13 @@
   }
 
 
+
+
   void AMPM(){
   DateTime now = rtc.now();
- 
-  // Calculer le temps écoulé en secondes depuis le démarrage
+
   unsigned long elapsedSeconds = now.unixtime();
- 
-  // Convertir le temps écoulé en heures, minutes et secondes
+
   int hours = elapsedSeconds / 3600;
   int minutes = (elapsedSeconds % 3600) / 60;
   int seconds = elapsedSeconds % 60;
@@ -116,14 +135,25 @@
     myDisplay.displayReset();
 }
 
+void print2digits(int number) {
+    if (number < 10) {
+      Serial.print("0");
+    }
+    Serial.print(number);
+}
 
 
-  void setup(){
+
+
+
+
+void setup(){
   pinMode(sensorPin, INPUT);
   pinMode(btn1,INPUT);
   pinMode(btn2,INPUT);
   pinMode(buzzer, OUTPUT);
   pinMode(LedPin, OUTPUT);
+  pinMode(onoff,INPUT);
 
 
   Serial.begin(9600);
@@ -141,23 +171,15 @@
       rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
     }
     myDisplay.begin();
+}
+
+
+
+void loop() {
+  readonoff = digitalRead(onoff);
+  if(readonoff = HIGH){
+    return 0; 
   }
-
-  void print2digits(int number) {
-    if (number < 10) {
-      Serial.print("0");
-    }
-    Serial.print(number);
-  }
-
-
-
-
-
-
-
-
-  void loop() {
 
   unsigned long currentMillis = millis();
 
@@ -200,13 +222,7 @@
   }
 
 
-  if (normal == 1){
-      modeAM();
 
-  }
-  else if (ampm == 1){
-      AMPM();
-  }
 
 
   if (reading>=100 && reading <150){
@@ -262,57 +278,27 @@
   }
 
 
+  if (normal == 1){
+      modeAM();
+
+  }
+  else if (ampm == 1){
+      AMPM();
   } 
-  
-
-
-
 
 
   if (h == hours || min == minutes){
     int chrono;
-    while (digitalRead(btn1)== LOW ||digitalRead(btn2)== LOW ){
-    tone(8, OCTAVE_4_DO, DUREE_TEMPS);
-      delay(DUREE_TEMPS);
-      tone(8, OCTAVE_4_DO, DUREE_TEMPS);
-      delay(DUREE_TEMPS);
-      tone(8, OCTAVE_4_DO, DUREE_TEMPS);
-      delay(DUREE_TEMPS);
-      tone(8, OCTAVE_4_RE, DUREE_TEMPS);
-      delay(DUREE_TEMPS);
-      tone(8, OCTAVE_4_MI, 2 * DUREE_TEMPS);
-      delay(2 * DUREE_TEMPS);
-      tone(8, OCTAVE_4_RE, 2 * DUREE_TEMPS);
-      delay(2 * DUREE_TEMPS);
-      tone(8, OCTAVE_4_DO, DUREE_TEMPS);
-      delay(DUREE_TEMPS);
-      tone(8, OCTAVE_4_MI, DUREE_TEMPS);
-      delay(DUREE_TEMPS);
-      tone(8, OCTAVE_4_RE, DUREE_TEMPS);
-      delay(DUREE_TEMPS);
-      tone(8, OCTAVE_4_RE, DUREE_TEMPS);
-      delay(DUREE_TEMPS);
-      tone(8, OCTAVE_4_DO, 4 * DUREE_TEMPS);
-      delay(4 * DUREE_TEMPS);
-      
-      chrono=++;
+    while (ultrason){
+      tone();
+    }
 
     }
-    } else {
+     else {
         delay(100);
         display.print("Erreur");
       }
 
     display.display();}
   }
-
-      
-
-  
-  
-
-
-
-
-
-
+}
