@@ -51,7 +51,8 @@
 
 
 
-  void Tone() {
+void Tone() {
+  for (i = 0; i <20; i++){
   tone(8, OCTAVE_4_DO, DUREE_TEMPS);
   delay(DUREE_TEMPS);
   tone(8, OCTAVE_4_DO, DUREE_TEMPS);
@@ -74,11 +75,32 @@
   delay(DUREE_TEMPS);
   tone(8, OCTAVE_4_DO, 4 * DUREE_TEMPS);
   delay(4 * DUREE_TEMPS);
+  }
+
 }
 
+void sonicsensor() {
+  // Envoi d'une impulsion ultrasonique
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
 
+  // Mesure de la durée du signal ultrasonique réfléchi
+  duration = pulseIn(echoPin, HIGH);
 
-  void NORMAL(){
+  // Calcul de la distance en centimètres
+  distance = duration * 0.034 / 2;
+
+  if(distance < 5){
+    return 0;
+  }
+
+  delay(1000);
+}
+
+void NORMAL(){
 
         DateTime now = rtc.now();
     unsigned long elapsedSeconds = 1000*millis() / 1000;
@@ -94,12 +116,12 @@
     myDisplay.displayText(timeStr, PA_CENTER, 1000, 1000, PA_PRINT, PA_PRINT);
     if (myDisplay.displayAnimate())
     myDisplay.displayReset();
-  }
+}
 
 
 
 
-  void AMPM(){
+void AMPM(){
   DateTime now = rtc.now();
 
   unsigned long elapsedSeconds = now.unixtime();
@@ -289,7 +311,7 @@ void loop() {
 
   if (h == hours || min == minutes){
     int chrono;
-    while (ultrason){
+    while (sonicsensor()){
       tone();
     }
 
@@ -302,3 +324,5 @@ void loop() {
     display.display();}
   }
 }
+
+
