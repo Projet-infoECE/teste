@@ -1,1 +1,318 @@
 
+  #include<Wire.h>
+  #include <Adafruit_GFX.h>
+  #include <Adafruit_SSD1306.h>
+  #include <RtcAlarmManager.h>
+  #include <RTClib.h>
+  #include <MD_parola.h>
+  #include <MD_MAX72xx.h>
+  #include <SPI.h>
+
+  #define OCTAVE_4_DO 523
+  #define OCTAVE_4_RE 587
+  #define OCTAVE_4_MI 659
+  #define OCTAVE_4_FA 698
+  #define OCTAVE_4_SOL 784
+  #define OCTAVE_4_LA 880
+  #define OCTAVE_4_SI 988
+
+
+  #define SCREEN_WIDTH 128
+  #define SCREEN_HEIGHT 64
+  int sensorPin=A0;
+  int reading = 0;
+  float voltage = 0;
+  int btn1 = A2;
+  int btn2 = A3;
+  int buzzer = A6;
+  int LedPin = A7;
+  int i = 0;
+  int h = 0;
+  int normal = 0;
+  int ampm = 0;
+
+  unsigned long lastUpdateTime = 0;
+  unsigned long updateInterval = 100; // Mettez à jour toutes les 100 millisecondes (ou la valeur souhaitée)
+
+
+  #define HARDWARE_TYPE MD_MAX72XX::PAROLA_HW
+  #define MAX_DEVICES 4
+  #define CS_PIN 10
+  RTC_DS3231 rtc;
+
+
+  MD_Parola myDisplay = MD_Parola(HARDWARE_TYPE, CS_PIN, MAX_DEVICES);
+
+  Adafruit_SSD1306 display(SCREEN_WIDTH,SCREEN_HEIGHT,&Wire,-1);
+
+  void NORMAL(){
+
+        DateTime now = rtc.now();
+  
+    // Calculer le temps écoulé en secondes depuis le démarrage
+    unsigned long elapsedSeconds = 1000*millis() / 1000;
+  
+    // Convertir le temps écoulé en heures, minutes et secondes
+    int hours = elapsedSeconds / 3600;
+    int minutes = (elapsedSeconds % 3600) / 60;
+    int seconds = elapsedSeconds % 60;
+
+  
+  /*
+    // Afficher le temps écoulé
+    Serial.print("Temps écoulé : ");
+    print2digits(hours % 24);
+    Serial.print(':');
+    print2digits(minutes);
+    Serial.print(':');
+    print2digits(seconds);
+    Serial.println();
+    */
+  
+    char timeStr[9]; // Pour stocker l'heure sous forme de chaîne de caractères (HH:MM:SS)
+    sprintf(timeStr, "%02d:%02d:%02d", hours, minutes, seconds);
+    delay(1000);
+    myDisplay.displayText(timeStr, PA_CENTER, 1000, 1000, PA_PRINT, PA_PRINT);
+    if (myDisplay.displayAnimate())
+    myDisplay.displayReset();
+  }
+
+
+  void AMPM(){
+  DateTime now = rtc.now();
+ 
+  // Calculer le temps écoulé en secondes depuis le démarrage
+  unsigned long elapsedSeconds = now.unixtime();
+ 
+  // Convertir le temps écoulé en heures, minutes et secondes
+  int hours = elapsedSeconds / 3600;
+  int minutes = (elapsedSeconds % 3600) / 60;
+  int seconds = elapsedSeconds % 60;
+
+  // Déterminer si c'est AM ou PM
+  char ampm[3];
+  strcpy(ampm, hours < 12 ? "AM" : "PM");
+
+  // Convertir l'heure au format 12 heures
+  hours = hours % 12;
+  hours = hours == 0 ? 12 : hours;  // 0 heures devient 12 heures en format 12 heures
+
+  // Afficher le temps écoulé
+  Serial.print("Temps écoulé : ");
+  print2digits(hours);
+  Serial.print(':');
+  print2digits(minutes);
+  Serial.print(':');
+  print2digits(seconds);
+  Serial.print(' ');
+  Serial.print(ampm);
+  Serial.println();
+
+  char timeStr[12]; // Pour stocker l'heure sous forme de chaîne de caractères (HH:MM:SS AM/PM)
+  sprintf(timeStr, "%02d:%02d:%02d %s", hours, minutes, seconds, ampm);
+  delay(1000);
+  myDisplay.displayText(timeStr, PA_CENTER, 1000, 1000, PA_PRINT, PA_PRINT);
+  if (myDisplay.displayAnimate())
+    myDisplay.displayReset();
+}
+
+
+
+  void setup(){
+  pinMode(sensorPin, INPUT);
+  pinMode(btn1,INPUT);
+  pinMode(btn2,INPUT);
+  pinMode(buzzer, OUTPUT);
+  pinMode(LedPin, OUTPUT);
+
+
+  Serial.begin(9600);
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC,0x3C)){
+  Serial.println(F("SSD1306 allocation failed"));
+  for( ;; );
+  }
+    if (!rtc.begin()) {
+      Serial.println("Impossible de trouver le module RTC. Vérifiez les connexions!");
+      while (1);
+    }
+    if (rtc.lostPower()) {
+      Serial.println("RTC a perdu l'alimentation. Réglez l'heure!");
+      rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+    }
+    myDisplay.begin();
+  }
+
+  void print2digits(int number) {
+    if (number < 10) {
+      Serial.print("0");
+    }
+    Serial.print(number);
+  }
+
+
+
+
+
+
+
+
+  void loop() {
+
+  unsigned long currentMillis = millis();
+
+
+  // Mettez à jour l'affichage à intervalles réguliers
+  if (currentMillis - lastUpdateTime >= updateInterval) {
+  lastUpdateTime = currentMillis;
+
+
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0,10);
+  reading = analogRead(sensorPin);
+  voltage = reading *5.0/1023.0;
+  display.print("Menu\n parametrage heure");
+
+
+  if (reading>=150){
+
+        display.clearDisplay();
+        display.setTextSize(1);
+        display.setTextColor(WHITE);
+        display.setCursor(0,10);
+        display.print("Reglage du reveil");
+        display.setCursor(0,20);
+        display.print("Choisir un mode :");
+        display.setCursor(0,30);
+        display.print("Mode 24H");
+        display.setCursor(0,40);
+        display.print("Mode 12 AM/PM");
+        display.display();
+        
+        if (digitalRead(btn1)==HIGH){
+            normal= 1;
+        }
+        else if (digitalRead(btn2)==HIGH){
+            ampm = 1;
+        }
+  }
+
+
+  if (normal == 1){
+      modeAM();
+
+  }
+  else if (ampm == 1){
+      AMPM();
+  }
+
+
+  if (reading>=100 && reading <150){
+            display.clearDisplay();
+        display.setTextSize(1);
+        display.setTextColor(WHITE);
+        display.setCursor(0,10);
+        display.print("Reglage du reveil");
+        display.setCursor(0,30);
+        display.print(h);
+        display.print(" H ");
+        display.print(i);
+        display.display();
+
+  if (digitalRead(btn1)==HIGH){
+        i++;
+            if (i == 60){
+                i=0;
+                h = h+1;
+                if (h==24){
+                i=0;
+                h=0;
+              }
+            }
+
+        display.clearDisplay();
+        display.setTextSize(1);
+        display.setTextColor(WHITE);
+        display.setCursor(0,10);
+        display.print("Reglage du reveil");
+        display.setCursor(0,30);
+        display.print(h);
+        display.print(" H ");
+        display.print(i);
+        display.display();
+  }
+
+    else if (digitalRead(btn2)==HIGH){
+      h++;
+                if (h==24){
+                h=0;}
+
+        display.clearDisplay();
+        display.setTextSize(1);
+        display.setTextColor(WHITE);
+        display.setCursor(0,10);
+        display.print("Reglage du reveil");
+        display.setCursor(0,30);
+        display.print(h);
+        display.print(" H ");
+        display.print(i);
+        display.display();
+  }
+
+
+  } 
+  
+
+
+
+
+
+  if (h == hours || min == minutes){
+    int chrono;
+    while (digitalRead(btn1)== LOW ||digitalRead(btn2)== LOW ){
+    tone(8, OCTAVE_4_DO, DUREE_TEMPS);
+      delay(DUREE_TEMPS);
+      tone(8, OCTAVE_4_DO, DUREE_TEMPS);
+      delay(DUREE_TEMPS);
+      tone(8, OCTAVE_4_DO, DUREE_TEMPS);
+      delay(DUREE_TEMPS);
+      tone(8, OCTAVE_4_RE, DUREE_TEMPS);
+      delay(DUREE_TEMPS);
+      tone(8, OCTAVE_4_MI, 2 * DUREE_TEMPS);
+      delay(2 * DUREE_TEMPS);
+      tone(8, OCTAVE_4_RE, 2 * DUREE_TEMPS);
+      delay(2 * DUREE_TEMPS);
+      tone(8, OCTAVE_4_DO, DUREE_TEMPS);
+      delay(DUREE_TEMPS);
+      tone(8, OCTAVE_4_MI, DUREE_TEMPS);
+      delay(DUREE_TEMPS);
+      tone(8, OCTAVE_4_RE, DUREE_TEMPS);
+      delay(DUREE_TEMPS);
+      tone(8, OCTAVE_4_RE, DUREE_TEMPS);
+      delay(DUREE_TEMPS);
+      tone(8, OCTAVE_4_DO, 4 * DUREE_TEMPS);
+      delay(4 * DUREE_TEMPS);
+      
+      chrono=++;
+
+    }
+    } else {
+        delay(100);
+        display.print("Erreur");
+      }
+
+    display.display();}
+  }
+
+      
+
+  
+  
+
+
+
+
+
+
